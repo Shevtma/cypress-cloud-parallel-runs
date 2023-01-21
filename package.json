@@ -9,12 +9,12 @@
     "cy:run:test:pwdChangeApi": "npx cypress run --config-file cypress.config.js --spec cypress/e2e/secretsanta.pwdChange.viaAPI.test.cy.js",
     "cy:run:test:mainPage": "npx cypress run --config-file cypress.config.js --spec cypress/e2e/sercretsanta.mainPage.test.cy.js",
     "cy:run:prod:loginregisterPages": "npx cypress run --config-file cypress.prod.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:loginregisterPages": "npx cypress run --record --key e1db83cf-bbc7-4bda-bd53-62a7a29b8cd0 --config-file cypress.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:pwdChangeApi": "npx cypress run --record --key e1db83cf-bbc7-4bda-bd53-62a7a29b8cd0 --config-file cypress.config.js --spec secretsanta.pwdChange.viaAPI.test.cy.js",
-    "cy:dashboard:run:test:mainPage": "npx cypress run --record --key e1db83cf-bbc7-4bda-bd53-62a7a29b8cd0 --config-file cypress.config.js --spec cypress/e2e/sercretsanta.mainPage.test.cy.js",
-    "cy:dashboard:run:prod:loginregisterPages": "npx cypress run --record --key e1db83cf-bbc7-4bda-bd53-62a7a29b8cd0 --config-file cypress.prod.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:chrome": "npx cypress run --browser chrome --record --key e1db83cf-bbc7-4bda-bd53-62a7a29b8cd0 --config-file cypress.config.js --spec secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:electron": "npx cypress run --browser electron --record --key e1db83cf-bbc7-4bda-bd53-62a7a29b8cd0 --config-file cypress.config.js --spec secretsanta.loginPage.regPage.test.cy.js",
+    "cy:dashboard:run:test:loginregisterPages": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
+    "cy:dashboard:run:test:pwdChangeApi": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec secretsanta.pwdChange.viaAPI.test.cy.js",
+    "cy:dashboard:run:test:mainPage": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/sercretsanta.mainPage.test.cy.js",
+    "cy:dashboard:run:prod:loginregisterPages": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.prod.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
+    "cy:dashboard:run:test:chrome": "npx cypress run --browser chrome --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec secretsanta.loginPage.regPage.test.cy.js",
+    "cy:dashboard:run:test:electron": "npx cypress run --browser electron --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec secretsanta.loginPage.regPage.test.cy.js",
     "cy:dashboard:run:test:all": "npm run cy:dashboard:run:test:chrome && npm run cy:dashboard:run:test:electron"
   },
   "repository": {
