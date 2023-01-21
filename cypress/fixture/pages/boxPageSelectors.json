@@ -1,0 +1,8 @@
+{
+    "boxNameSelector": ":nth-child(1) > .frm",
+    "boxIdSelector": ":nth-child(3) > .frm",
+    "boxIconSelector" : ":nth-child(11) > .picture_svg_wrapper",
+    "giftPriceToggleSelector" : "input",
+    "giftPriceSelector" : ".MuiGrid-grid-xs-5 .frm",
+    "giftCurrencySelector" : ".MuiGrid-grid-xs-7 .frm"
+}

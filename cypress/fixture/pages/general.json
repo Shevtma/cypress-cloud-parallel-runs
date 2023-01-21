@@ -1,0 +1,4 @@
+{
+    "arrowRightSelector": ".btn-arrow-right",
+    "submitButtonSelector": ".btn-main"
+}

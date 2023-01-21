@@ -1,0 +1,9 @@
+{
+    "loginField":":nth-child(3) > .frm",
+    "passwordField":":nth-child(4) > .frm",
+    "loginButton": ".btn-main",
+    "emailErrLabelSelector": ":nth-child(3) > .frm-wrapper__top > .frm-wrapper__top__error",
+    "pwdErrLabelSelector": ":nth-child(4) > .frm-wrapper__top > .frm-wrapper__top__error",
+    "errLabelSelector": ".hint > .txt-secondary",
+    "registerHrefSelector": ".hint > .txt-secondary > a"
+}

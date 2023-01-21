@@ -1,0 +1,11 @@
+{
+    "userNameField":":nth-child(3) > .frm",
+    "emailField":":nth-child(4) > .frm",
+    "registerButton": ".btn-main",
+    "regErrLabelSelector": ".form-auth__error > .hint > .txt-secondary",
+    "regLabelSelector": ".layout-column-center > .hint > .txt-secondary",
+    "enterHrefSelector": ".hint > .txt-secondary > a",
+    "emailErrLabelSelector": ".frm-wrapper__top__error",
+    "successTitleSelector": ".picture-notice__title",
+    "successHintSelector": ".picture-notice__hint"
+}

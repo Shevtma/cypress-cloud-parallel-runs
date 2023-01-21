@@ -1,0 +1,5 @@
+{
+    "wishesInputElementSelector" : ".frm",
+    "wishesLabelSelector": "label > .txt-secondary",
+    "mainElementSelector" : ".picture-notice__title"
+}
