@@ -4,18 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cy:open": "npx cypress open",
-    "cy:run:test:loginregisterPages": "npx cypress run --config-file cypress.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:run:test:pwdChangeApi": "npx cypress run --config-file cypress.config.js --spec cypress/e2e/secretsanta.pwdChange.viaAPI.test.cy.js",
-    "cy:run:test:mainPage": "npx cypress run --config-file cypress.config.js --spec cypress/e2e/sercretsanta.mainPage.test.cy.js",
-    "cy:run:prod:loginregisterPages": "npx cypress run --config-file cypress.prod.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:loginregisterPages": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:pwdChangeApi": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec secretsanta.pwdChange.viaAPI.test.cy.js",
-    "cy:dashboard:run:test:mainPage": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/sercretsanta.mainPage.test.cy.js",
-    "cy:dashboard:run:prod:loginregisterPages": "npx cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.prod.config.js --spec cypress/e2e/secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:chrome": "npx cypress run --browser chrome --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:electron": "npx cypress run --browser electron --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec secretsanta.loginPage.regPage.test.cy.js",
-    "cy:dashboard:run:test:all": "npm run cy:dashboard:run:test:chrome && npm run cy:dashboard:run:test:electron"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --config-file cypress.config.js",
+    "cy:run:cloud": "cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js",
+    "cy:nokey:spec1:run": "cypress run  --config-file cypress.config.js --spec cypress/e2e/secretsanta.spec1.cy.js",
+    "cy:nokey:spec2:run": "cypress run  --config-file cypress.config.2.js --spec cypress/e2e/secretsanta.spec2.cy.js",
+    "cy:nokey:run:parallel" : "npm run cy:nokey:spec1:run -- --browser chrome & npm run cy:nokey:spec2:run -- --browser electron",
+    "cy:spec1:run:cloud": "cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/secretsanta.spec1.cy.js",
+    "cy:spec2:run:cloud": "cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.2.js --spec cypress/e2e/secretsanta.spec2.cy.js",
+    "cy:run:parallel": "npm run cy:spec1:run:cloud -- --browser chrome --group Chrome --ci-build-id 1 --parallel & npm run cy:spec2:run:cloud -- --browser electron --group Electron --ci-build-id 1 --parallel"
   },
   "repository": {
     "type": "git",

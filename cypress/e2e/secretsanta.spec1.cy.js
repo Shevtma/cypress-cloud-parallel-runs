@@ -1,13 +1,9 @@
 import { LoginPage } from "../pages/loginPage";
-import { RegisterPage } from "../pages/registerPage";
 import { faker } from "@faker-js/faker";
-import { ChangePasswordPage } from "../pages/changePasswordPage";
 const loginData = require("../fixture/loginData.json");
-const registerData = require("../fixture/registerData.json");
 const loginFieldsSelectors = require("../fixture/pages/loginPageSelectors.json");
 const mainPageSelectors = require("../fixture/pages/mainPageSelectors.json");
-const registerFieldsSelectors = require("../fixture/pages/registerPageSelectors.json");
-const accountPageSelectors = require("../fixture/pages/accountPageSelectors.json");
+const arrayOfPasswords = require("../fixture/passwordsList.json");
 
 var goodEmail = ""; //Cypress.env("email");
 var goodPassword = ""; //Cypress.env("password");
@@ -117,17 +113,13 @@ describe("Secret Santa. Тесты для формы логина", () => {
       }).then((response) => {
         expect(response.status).to.eq(200);
       });
-
-      // cy.visit("/account");
-      // cy.get(accountPageSelectors.exitSelector).click();
     }
   );
 });
 
-describe("Secret Santa. Тесты для формы регистрации", () => {
-  let registerPage = new RegisterPage();
+describe("Secret Santa. Test the password changed via API-calls", () => {
+  var connectSIDcookie = "";
 
-  // корректные параметры подключения зависят от окружения
   if (env == "staging") {
     goodEmail = "shevtma+test@gmail.com";
     goodPassword = "test1234";
@@ -136,65 +128,108 @@ describe("Secret Santa. Тесты для формы регистрации", ()
     goodPassword = "RP7105";
   }
 
-  // Перед каждым тестом заходим на сайт на страницу регистрации
+  // Перед тестами заходим на сайт
   beforeEach(() => {
-    cy.visit("/register");
+    cy.request({
+      method: "POST",
+      url: "api/login",
+      body: {
+        email: goodEmail,
+        password: goodPassword,
+      },
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+    });
   });
 
-  it("Тестируем форму регистрации. Попытка регистрации с пустыми данными", () => {
-    registerPage.register("", "");
-    cy.get(registerFieldsSelectors.regErrLabelSelector)
-      .should("be.visible")
-      .should("have.text", "Некорректное поле");
+  // После завершения тестов сбрасываем пароль на дефолтный
+  afterEach(() => {
+    cy.request({
+      method: "PUT",
+      url: "api/account/password",
+      headers: {
+        cookie: connectSIDcookie,
+      },
+      body: { password: goodPassword },
+    }).should((response) => {
+      expect(response.status).to.eq(200);
+    });
   });
 
-  it("Тестируем форму регистрации. Попытка регистрации с пустым email", () => {
-    registerPage.register(registerData[0].userName, "");
-    cy.get(registerFieldsSelectors.regErrLabelSelector)
-      .should("be.visible")
-      .should("have.text", "Некорректное поле");
+  it("Set new password (sad path - paramerized)", () => {
+    arrayOfPasswords.forEach((pswd) => {
+      cy.log(pswd);
+      cy.request({
+        method: "PUT",
+        url: "api/account/password",
+        body: { password: pswd },
+        failOnStatusCode: false,
+      }).should((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.error).to.have.property("name", "ValidationError");
+      });
+    });
   });
 
-  it("Тестируем форму регистрации. Попытка регистрации с пустым именем пользователя", () => {
-    registerPage.register("", registerData[1].email);
-    cy.get(registerFieldsSelectors.regErrLabelSelector)
-      .should("be.visible")
-      .should("have.text", "Некорректное поле");
-  });
-
-  it("Тестируем форму регистрации. Попытка регистрации пользователя c некорректным email", () => {
-    registerPage.register(registerData[2].userName, registerData[2].email);
-    cy.get(registerFieldsSelectors.emailErrLabelSelector)
-      .should("be.visible")
-      .should("have.text", "Некорректный email");
-    cy.get(registerFieldsSelectors.regErrLabelSelector)
-      .should("be.visible")
-      .should("have.text", "Некорректное поле");
-  });
-
-  it("Тестируем форму регистрации. Попытка регистрации ранее зарегистрированного пользователя", () => {
-    registerPage.register("Maria", goodEmail);
-    cy.get(registerFieldsSelectors.regErrLabelSelector)
-      .should("be.visible")
-      .should("have.text", "Такой пользователь уже зарегистрирован. Войти?");
-    cy.get(registerFieldsSelectors.enterHrefSelector)
-      .should("be.visible")
-      .should("have.attr", "href", "/login");
-  });
-
-  it("Тестируем форму регистрации. Попытка регистрации пользователя (данные корректны)", () => {
-    const newUserName = faker.internet.userName();
-    const newEmail = faker.internet.email();
-    registerPage.register(newUserName, newEmail);
-    cy.get(registerFieldsSelectors.successTitleSelector)
-      .should("be.visible")
-      .should("have.text", "Письмо отправлено!");
-    cy.get(registerFieldsSelectors.successHintSelector)
-      .should("be.visible")
-      .should(
-        "have.text",
-        "Проверьте свой почтовый ящик. Вероятно, оно уже там :)"
+  it("Set new password (sad path - short password)", () => {
+    let newPassword = faker.internet.password(5);
+    cy.log(newPassword);
+    cy.request({
+      method: "PUT",
+      url: "api/account/password",
+      body: { password: newPassword },
+      failOnStatusCode: false,
+    }).should((response) => {
+      expect(response.status).to.eq(400);
+      expect(response.body.error.errors[0]).to.have.property(
+        "transKey",
+        "validations.minCharLength"
       );
+    });
+  });
+
+  it("Set new password (sad path - unauthorized user)", () => {
+    let fakeCookie = "connect.sid=" + faker.random.alphaNumeric(82);
+    let newPassword = faker.internet.password(6);
+    cy.log(newPassword);
+    cy.log(fakeCookie);
+    cy.request({
+      method: "GET",
+      url: "api/session",
+    }).then((response) => {
+      let cookie = response.requestHeaders["cookie"];
+      let arrayofcookies = cookie.split(";");
+      for (let cooka of arrayofcookies) {
+        if (cooka.includes("connect.sid")) {
+          connectSIDcookie = cooka;
+        }
+      }
+    });
+
+    cy.request({
+      method: "PUT",
+      url: "api/account/password",
+      headers: {
+        cookie: fakeCookie,
+      },
+      body: { password: newPassword },
+      failOnStatusCode: false,
+    }).should((response) => {
+      expect(response.status).to.eq(401);
+      expect(response.body.error).to.have.property("name", "UnauthorizedError");
+    });
+  });
+
+  it("Set new password (happy path)", () => {
+    let newPassword = faker.internet.password(6);
+    cy.log(newPassword);
+    cy.request({
+      method: "PUT",
+      url: "api/account/password",
+      body: { password: newPassword },
+    }).should((response) => {
+      expect(response.status).to.eq(200);
+    });
   });
 });
 
