@@ -12,7 +12,7 @@
     "cy:nokey:run:parallel" : "npm run cy:nokey:spec1:run -- --browser chrome & npm run cy:nokey:spec2:run -- --browser electron",
     "cy:spec1:run:cloud": "cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/secretsanta.spec1.cy.js",
     "cy:spec2:run:cloud": "cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.2.js --spec cypress/e2e/secretsanta.spec2.cy.js",
-    "cy:run:parallel": "npm run cy:spec1:run:cloud -- --browser chrome --group Chrome --ci-build-id 1 --parallel & npm run cy:spec2:run:cloud -- --browser electron --group Electron --ci-build-id 1 --parallel"
+    "cy:run:parallel": "npm run cy:spec1:run:cloud -- --browser chrome --group Chrome --ci-build-id 5 --parallel & npm run cy:spec2:run:cloud -- --browser electron --group Electron --ci-build-id 5 --parallel"
   },
   "repository": {
     "type": "git",

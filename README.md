@@ -21,24 +21,19 @@
 
 `cy:open`
 
-`cy:run:test:loginregisterPages`
+`cy:run`
 
-`cy:run:test:pwdChangeApi`
+`cy:run:cloud`
 
-`cy:run:test:mainPage`
+`cy:nokey:spec1:run`
 
-`cy:run:prod:loginregisterPages`
+`cy:nokey:spec2:run`
 
-`cy:dashboard:run:test:loginregisterPages`
+`cy:nokey:run:parallel`
 
-`cy:dashboard:run:test:pwdChangeApi`
+`cy:spec1:run:cloud`
 
-`cy:dashboard:run:test:mainPage`
+`cy:spec2:run:cloud`
 
-`cy:dashboard:run:prod:loginregisterPages`
+`cy:run:parallel`
 
-`cy:dashboard:run:test:chrome`
-
-`cy:dashboard:run:test:electron`
-
-`cy:dashboard:run:test:all`
