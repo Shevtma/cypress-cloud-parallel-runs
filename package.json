@@ -7,12 +7,15 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run --config-file cypress.config.js",
     "cy:run:cloud": "cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js",
-    "cy:nokey:spec1:run": "cypress run  --config-file cypress.config.js --spec cypress/e2e/secretsanta.spec1.cy.js",
-    "cy:nokey:spec2:run": "cypress run  --config-file cypress.config.2.js --spec cypress/e2e/secretsanta.spec2.cy.js",
-    "cy:nokey:run:parallel" : "npm run cy:nokey:spec1:run -- --browser chrome & npm run cy:nokey:spec2:run -- --browser electron",
+    "cy:nokey:spec1:run": "cypress run  --config-file cypress.config.js --spec cypress/e2e/secretsanta.spec1.cy.js --reporter mocha-junit-reporter --reporter-options mochaFile=./spec1-test-results.xml",
+    "cy:nokey:spec2:run": "cypress run  --config-file cypress.config.2.js --spec cypress/e2e/secretsanta.spec2.cy.js --reporter mocha-junit-reporter --reporter-options mochaFile=./spec2-test-results.xml",
+    "cy:nokey:run:parallel": "npm run cy:nokey:spec1:run -- --browser chrome & npm run cy:nokey:spec2:run -- --browser electron",
     "cy:spec1:run:cloud": "NO_COLOR=1 cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.js --spec cypress/e2e/secretsanta.spec1.cy.js",
     "cy:spec2:run:cloud": "NO_COLOR=1 cypress run --record --key f52792e9-59a6-4627-973b-30aa93a0aeb4 --config-file cypress.config.2.js --spec cypress/e2e/secretsanta.spec2.cy.js",
-    "cy:run:parallel": "npm run cy:spec1:run:cloud -- --browser chrome --group Chrome --ci-build-id 7 --parallel & npm run cy:spec2:run:cloud -- --browser electron --group Electron --ci-build-id 7 --parallel"
+    "cy:run:parallel": "npm run cy:spec1:run:cloud -- --browser chrome --group Chrome --ci-build-id 7 --parallel & npm run cy:spec2:run:cloud -- --browser electron --group Electron --ci-build-id 7 --parallel",
+    "spec1-jira-upload": "curl -H \"Content-Type: text/xml\" -X POST -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnQiOiIxYmM3MDBmMC04MzkxLTNmYjktOTcxMC1jYzBiMGFmOTM0NTAiLCJhY2NvdW50SWQiOiI2MzdhNmQ0Mzc3YWNkMjI0YjMzZGFkNWMiLCJpc1hlYSI6ZmFsc2UsImlhdCI6MTY4MDQ1NDc5MiwiZXhwIjoxNjgwNTQxMTkyLCJhdWQiOiJFQTk1OEZEODVBNEU0RURDOERFNUUzOEYxQzMwRDYwNyIsImlzcyI6ImNvbS54cGFuZGl0LnBsdWdpbnMueHJheSIsInN1YiI6IkVBOTU4RkQ4NUE0RTRFREM4REU1RTM4RjFDMzBENjA3In0.OlT1v3IhjXlLHEJqtLE1REA1Tw8uU_I1Ai9W88MMMFs\"  --data @\"/Users/maria/avtotests/Автоматизируй_это/cypress-cloud-parallel-runs/spec1-test-results.xml\" https://xray.cloud.getxray.app/api/v2/import/execution/junit?projectKey=CCPR",
+    "spec2-jira-upload": "curl -H \"Content-Type: text/xml\" -X POST -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnQiOiIxYmM3MDBmMC04MzkxLTNmYjktOTcxMC1jYzBiMGFmOTM0NTAiLCJhY2NvdW50SWQiOiI2MzdhNmQ0Mzc3YWNkMjI0YjMzZGFkNWMiLCJpc1hlYSI6ZmFsc2UsImlhdCI6MTY4MDQ1NDc5MiwiZXhwIjoxNjgwNTQxMTkyLCJhdWQiOiJFQTk1OEZEODVBNEU0RURDOERFNUUzOEYxQzMwRDYwNyIsImlzcyI6ImNvbS54cGFuZGl0LnBsdWdpbnMueHJheSIsInN1YiI6IkVBOTU4RkQ4NUE0RTRFREM4REU1RTM4RjFDMzBENjA3In0.OlT1v3IhjXlLHEJqtLE1REA1Tw8uU_I1Ai9W88MMMFs\"  --data @\"/Users/maria/avtotests/Автоматизируй_это/cypress-cloud-parallel-runs/spec2-test-results.xml\" https://xray.cloud.getxray.app/api/v2/import/execution/junit?projectKey=CCPR",
+    "jira-upload-all": "npm run spec1-jira-upload & npm run spec2-jira-upload"
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,7 @@
   "homepage": "https://github.com/Shevtma/cypress-cloud-parallel-runs#readme",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "cypress": "^12.1.0"
+    "cypress": "^12.1.0",
+    "mocha-junit-reporter": "^2.2.0"
   }
 }

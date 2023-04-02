@@ -12,7 +12,7 @@ export class ChangePasswordPage {
       this.elements.newpsw1Field().type(newPassword);
       this.elements.newpsw2Field().type(newPassword);
     }
-    this.elements.saveButton().click();
+    this.elements.saveButton().click({ force: true });
   }
 }
 

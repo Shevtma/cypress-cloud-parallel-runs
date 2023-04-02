@@ -14,7 +14,7 @@ export class RegisterPage {
     if (userEmail.length > 0) {
       this.elements.emailField().type(userEmail);
     }
-    this.elements.registerButton().click();
+    this.elements.registerButton().click({ force: true });
   }
 }
 

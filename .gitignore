@@ -105,3 +105,10 @@ dist
 
 # Jenkins package
 jenkins.war
+
+# tokens and keys
+credentials.json
+
+#test results
+screenshots/
+*test-results.xml
